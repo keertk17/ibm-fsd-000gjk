@@ -1,0 +1,135 @@
+<html>
+    <head>
+        <title>TimeTable</title>
+        <style type="text/css">
+            body{
+                background: rgb(170, 199, 241);
+                }
+            input{
+                border:1px solid;
+                border-radius:4px;
+                }
+                  fieldset legend{
+            
+                    font-family:'Times New Roman', Times, serif;
+                  }
+                
+                  label{
+                      font-family: Arial, Helvetica, sans-serif;
+                      font-weight: bold;
+                  }
+            </style>
+        <script type="text/javascript" src="ttt.js">
+        </script>
+    </head>
+    <body>
+        <fieldset><legend>TimeTable</legend>
+            <form>
+               <table align="center" border="1" >
+                 <tr>
+                    <th align="center"><label>10-11am</label></th>
+                    <th align="center"><label>11-12am</label></th>
+                    <th align="center"><label>12-1pm</label></th>
+                    <th align="center"><label>Lunch(1-2pm)</label></th>
+                    <th align="center"><label>2-3pm</label></th>
+                    <th align="center"><label>3-4pm</label></th>
+                    <th align="center"><label>4-5pm</label></th>
+                 </tr>
+                 <tr>
+                    <td align="center"><input type="button" value="Maths" onclick="maths()"/></td>
+                    <td align="center"><input type="button" value="English" onclick="eng()"/></td>
+                    <td align="center"><input type="button" value="Science" onclick="science()"/></td>
+                    <td align="center"> LUNCH</td>
+                    <td align="center"><input type="button" value="Hindi" onclick="hindi()"/></td>
+                    <td align="center"><input type="button" value="Computer" onclick="cs()"/></td>
+                    <td align="center"><input type="button" value="Accounts" onclick="acc()"/></td>
+                 </tr>
+                </table>
+            </form>
+        </fieldset>
+        <fieldset><legend>Trainer details</legend>
+            <form>
+                <table align="left">
+                    <tr>
+                     <th><label>Name</label></th>
+                    <td><input type="text" name="nname" id="nname"> </td>
+                    </tr>
+                   <tr>
+                     <th><label>Subject1</label></th>
+                     <td><select id="subj1">
+                        <option value="English">English</option>
+                        <option value="Maths">Maths</option>
+                        <option value="Science">Science</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Computer">Computer</option>
+                        <option value="Accounts">Accounts</option>
+                     </select></td>
+                    </tr>
+                    <tr>
+                            <th><label>Subject2</label></th>
+                            <td><select id="subj2">
+                               <option value="English">English</option>
+                               <option value="Maths">Maths</option>
+                               <option value="Science">Science</option>
+                               <option value="Hindi">Hindi</option>
+                               <option value="Computer">Computer</option>
+                               <option value="Accounts">Accounts</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                            <th><label>Subject3</label></th>
+                            <td><select id="subj3">
+                               <option value="English">English</option>
+                               <option value="Maths">Maths</option>
+                               <option value="Science">Science</option>
+                               <option value="Hindi">Hindi</option>
+                               <option value="Computer">Computer</option>
+                               <option value="Accounts">Accounts</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                     <td colspan="2"><input type="button" value="Save" onclick="saveTrainerDetails()"/></td>
+                     </tr>
+                </table>
+            </form>
+        </fieldset>
+        <fieldset><legend>Assign</legend>
+        <form>
+            <table align="left">
+                <tr>
+                    <th><label>Class</label></th>
+                    <td><select id="classs">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <th><label>Slot</label></th>
+                    <td><select id=slot>
+                        <option value="10-11am">10-11am</option>
+                        <option value="11-12am">10-11am</option>
+                        <option value="12-1pm">10-11am</option>
+                        <option value="2-3pm">10-11am</option>
+                        <option value="3-4pm">10-11am</option>
+                        <option value="4-5pm">10-11am</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <th><label>Subject</label></th>
+                    <td><select id="subj">
+                            <option value="English">English</option>
+                            <option value="Maths">Maths</option>
+                            <option value="Science">Science</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Computer">Computer</option>
+                            <option value="Accounts">Accounts</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="button" value="Assign" onclick="editTimeTable()"/></td>
+                    </tr>
+   
+            </table>
+        </form>
+    </fieldset>
+    </body>
