@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <title>
+            Checklist
+        </title>
+        <script type="text/javascript">
+        const save = ()=>{
+            const _url = 'http://localhost:2777/products';
+            fetch(_url,{})
+            .then(res=>res.json())
+            .then(products=>{
+                createproducts(products);
+               
+            })  
+        }
+        const createproducts=(data)=>
+        {
+            const uname=document.getElementById('uname');
+                let rows = '';
+                data.products.forEach((uname)=>{
+                    rows += `<option value=${uname.name}> ${uname.name} </option> `
+                });
+                uname.innerHTML=rows;
+        }
+
+        const add=()=>
+        {   uname=document.getElementById('uname').value;
+           /*const baseUrl = 'http://localhost:2777/cart';
+            fetch(baseUrl+'/add',{
+                    method : 'POST',
+                    body:JSON.stringify({
+                            
+                            name : uname 
+                            /*type :type,
+                            price :price,
+                            quantity : quantity
+                            
+                        })
+                })*/
+                const baseUrl = 'http://localhost:2777/products';
+                fetch(baseUrl,{})
+                .then(response=>response.json())
+                .then(data=>{
+                    createTable(data);
+                });
+        }
+
+               /*const baseUrl = 'http://localhost:2777/products';
+                fetch(baseUrl,{})
+                .then(response=>response.json())
+                .then(data=>{
+                    data.products.forEach((e)=>{
+                        if(data.name==uname){
+                        createTable(data);}
+                    })
+                    
+                });*/
+            const createTable = (data)=>{
+            let rows = '';
+            data.products.forEach((u) => {
+            rows += `<tr>
+                          
+                            <td>${u.name}</td>
+                            <td>${u.type}</td>
+                            <td>${u.quantity}</td>
+                            <td>${u.price}</td>
+                        </tr>`
+                    })
+
+            const _table = `<table>
+                                <tr>
+                                    
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+
+                                </tr>
+                                ${rows}
+                            </table>`
+            document.getElementById('products').innerHTML = _table;
+        }
+        /*const total = ()=>{
+            const _url = 'http://localhost:2777/cart';
+            fetch(_url,{})
+            .then(res=>res.json())
+            .then(cart=>{
+                totalvalue(cart);
+               
+            });  
+        }
+        const totalvalue=(cart)=>{
+            let sum=0;
+            cart.carttotal.forEach((e)=>{
+                sum+=cart.price;
+            });
+            console.log('sum');
+        }*/
+        
+        </script>
+    </head>
+    <body onload="save()">
+        <select id="uname" >
+            <option ></option></select>
+        <input type="button" id="save" onclick="add()"  value="Add to cart"/>
+    <div id="products">
+
+    </div>
+    <div id="carttotal" align="center" >
+        <input type="button" id="total" onclick="total()" value="Grand Total"/>
+    </div>
+    <div id="checkout" align="center">
+            <a href="email.html">
+        <input type="button" id="checkout"  value="CheckOut"/></a>
+    </div>
+
+    </body>
+</html>
