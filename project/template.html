@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>
+            My template
+        </title>
+            <style>
+               div 
+               {
+                 display: inline-block;
+                 width: 30%;
+                 height: 60%;
+                 border-block: 30%
+               }   
+               button
+               {
+                background-color: rgb(91, 169, 243);
+                    border: 1px solid;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    }     
+            </style>
+            <script type="text/javascript">
+                const temp1 =()=>{
+                    window.location="temp1.html"
+                }
+                const temp2 =()=>{
+                    window.location="temp2.html"
+                }
+                const temp3 =()=>{
+                    window.location="temp3.html"
+                }
+                const loadTemplate=()=>{
+                    const _url = 'http://localhost:4777/template/add';
+                    fetch(_url,{})
+                            .then(res=>res.json())
+                            .then(temp=>{
+                                createTemp(temp);
+                            })
+                        }
+                const createTemp=(temp)=>{
+                let res1 = `<img src='${temp.template[0].template}'>
+                <input type="button" value="Select template" onclick="temp1()"/>`;
+                document.getElementById('img1').innerHTML = res1;
+                let res2 = `<img src='${temp.template[1].template}'>
+                <input type="button" value="Select template" onclick="temp2()"/>`;
+                document.getElementById('img2').innerHTML = res2;
+                let res3 = `<img src='${temp.template[2].template}'>
+                <input type="button" value="Select template" onclick="temp3()"/>`;
+                document.getElementById('img3').innerHTML = res3;
+                    }
+            </script>
+    </head>
+    <body onload="loadTemplate()">
+        <label>
+            <div id="img1">
+
+            </div>
+        </label>
+        <label>
+                <div id="img2">
+
+                </div>
+        </label>
+        <label>
+                <div id="img3">
+
+                </div>
+        </label> 
+    </body>  
+</html>
