@@ -2,12 +2,11 @@ package comm.example.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,16 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import comm.example.controller.EmployeeDaoImpl;
-import comm.example.factory.MyConnectionFactory;
 import comm.example.model.Employee;
 
 /**
- * Servlet implementation class ViewEmployee
+ * Servlet implementation class EditEmployee
  */
-@WebServlet("/ViewEmployee.view")
-public class ViewEmployee extends HttpServlet {
+@WebServlet("/EditEmployee.view")
+public class EditEmployee extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-       
+    public String email;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			doProcess(request, response);
@@ -45,25 +44,26 @@ public class ViewEmployee extends HttpServlet {
 	}
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-		PrintWriter pw = response.getWriter();
-		Employee e=new Employee();
+		
+		email=request.getParameter("id");
 		EmployeeDaoImpl emp=new EmployeeDaoImpl();
-		Connection connection=MyConnectionFactory.getMySqlConnectionFormMydb();
-		Statement statement = connection.createStatement();
-		ArrayList<Employee> list= emp.viewEmployee(e);
-		pw.print("<table><tr><td>NAME</td><td>PASSWORD</td><td>EMAIL</td><td>COUNTRY</td></tr>");
-		for(int i=0;i<list.size();i++){
-
-			String email = list.get(i).getEmail();
-			pw.println("<tr><td>"+list.get(i).getName()+"</td>");
-			pw.println("<td>"+list.get(i).getPassword()+"</td>");
-			pw.println("<td>"+list.get(i).getEmail()+"</td>");
-			pw.println("<td>"+list.get(i).getCountry()+"</td>");
-			pw.println("<td><a href='EditEmployee.view?id="+email+"'>Edit</a></td>");
-			pw.println("<td><a href='DeleteEmployeeController.view?id="+email+"'>Delete</a></td></tr>");
-			
+		//System.out.println(email);
+		ArrayList<Employee> list=emp.editEmployee(email);
+		PrintWriter out = response.getWriter();
+		for(Employee e:list) {
+			out.println("<form action='EditEmployeeController.view' method='post'>");
+			out.println("Name:<input type='text' name='name' value='"+e.getName()+"'/><br/>" );
+			out.println("Password:<input type='text' name='password' value='"+e.getPassword()+"'/><br/>" );
+			out.println("Email:<input type='text' name='email' value='"+e.getEmail()+"'/><br/>" );
+			out.println("Country:<select name=\"country\">\r\n" + 
+						"<option value=\"unknown\">Select...</option>\r\n" + 
+						"<option value=\"India\">India</option>\r\n" + 
+						"<option value=\"US\">US</option>\r\n" + 
+						"<option value=\"UK\">UK</option>\r\n" + 
+						"<option value=\"other\">Other</option></select><br />\r\n");
+			out.println("<input type='submit' value='EDIT AND SAVE'<br /></form>");
+		
 		}
-
-		pw.print("</table>");
+		
 }
 }

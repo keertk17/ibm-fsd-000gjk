@@ -7,7 +7,10 @@ import comm.example.model.Employee;
 
 public interface EmployeeDao {
 	public void createEmployee(Employee employee);
+	public void updateEmployee(Employee e);
 	public List viewEmployee(Employee employee) throws SQLException;
+	public List editEmployee(String email);
+	public void deleteEmployee(String email);
 	//public void getConnection();
 
 }

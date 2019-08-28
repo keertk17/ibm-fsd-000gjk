@@ -1,4 +1,5 @@
 package comm.example.controller;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -16,16 +17,6 @@ import comm.example.model.Employee;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 	
-	private MyConnectionFactory factory=null;
-	private Connection connection=null;
-	private PreparedStatement pStatement=null;
-	private Statement statement=null;
-	private ResultSet resultSet=null;
-	
-	
-
-	private String name,password,email,country;
-    
 
 	@Override
 	public void createEmployee(Employee employee) {
@@ -72,7 +63,64 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			}
 			return list;
 		}
+
+
+	@Override
+	public ArrayList<Employee> editEmployee(String email) {
+		ArrayList<Employee> list=new ArrayList<Employee>();
+		Statement statement=null;
+		ResultSet resultSet=null;
+		try {
+			Connection connection=MyConnectionFactory.getMySqlConnectionFormMydb();
+			statement=connection.createStatement();
+			resultSet=statement.executeQuery("select name,password,email,country from employee where email='"+email+"'");
+			while(resultSet.next()) {
+				list.add(new Employee( resultSet.getString(1),
+						resultSet.getString(2), resultSet.getString(3),resultSet.getString(4)));
+			
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return list;
 	}
+
+
+	@Override
+	public void deleteEmployee(String email) {
+		// TODO Auto-generated method stub
+		Statement statement=null;
+		ResultSet resultSet=null;
+		try {
+			Connection connection=MyConnectionFactory.getMySqlConnectionFormMydb();
+			System.out.println(email);
+			PreparedStatement pst=connection.prepareStatement("delete from employee where email='"+email+"'");
+			pst.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	@Override
+	public void updateEmployee(Employee employee) {
+		try {
+			Connection connection=MyConnectionFactory.getMySqlConnectionFormMydb();
+			//System.out.println(employee.getName());
+			PreparedStatement pst=connection.prepareStatement("update employee set name=?,password=?,email=?,country=? where email=?");
+			pst.setString(1,employee.getName());
+			pst.setString(2, employee.getPassword());
+			pst.setString(3, employee.getEmail());
+			pst.setString(4, employee.getCountry());
+			pst.setString(5, employee.getEmail());
+			pst.executeUpdate();		
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}
+	}
+}
 
 
 	
