@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	
+	<!--  <bean name="address" class="comm.bean.AddressImpl">
+	</bean>
+	<bean name="theEmployee" class="comm.bean.Employee" init-method="initEmployee" destroy-method="destEmployee">
+	<constructor-arg name="id" value="${id}"></constructor-arg>
+	<constructor-arg name="firstName" value="${firstName}"></constructor-arg>
+	<constructor-arg name="lastName" value="${lastName}"></constructor-arg>
+	<constructor-arg name="email" value="${email}"></constructor-arg>
+	<constructor-arg name="address" ref="address"></constructor-arg>
+	</bean>-->
+	
+	<context:property-placeholder location="classpath:EmployeeProperty"/>
+	<context:component-scan base-package="comm.bean"></context:component-scan>
+
+	</beans>
