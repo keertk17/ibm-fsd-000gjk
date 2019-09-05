@@ -4,6 +4,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 import comm.bean.Employee;
+import comm.bean.EmployeeDAO;
 
 /**
  * Hello world!
@@ -14,7 +15,7 @@ public class App
     public static void main( String[] args )
     {
     	
-    	try {
+    	/*try {
     		ClassPathXmlApplicationContext context=new 
         			ClassPathXmlApplicationContext("applicationContext.xml");
     		Employee employee=context.getBean("theEmployee",Employee.class);
@@ -23,6 +24,11 @@ public class App
     		context.close();
     	}catch(Exception e) {
     		e.printStackTrace();
-    	}
+    	}*/
+    	
+    	ClassPathXmlApplicationContext context=
+        		new ClassPathXmlApplicationContext("applicationContext.xml");
+        EmployeeDAO dao=context.getBean("eDao",EmployeeDAO.class);
+        dao.createEmployee(new Employee(1,"MS","DHONI","msd@gg.com"));
     }
 }

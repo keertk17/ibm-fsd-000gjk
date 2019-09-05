@@ -5,26 +5,26 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 
-@Component("theEmployee")
+//@Component("theEmployee")
 
 public class Employee implements Address {
 	 
 	
-	@Value("${id}")
+	//@Value("${id}")
 	 private int id;
-	@Value("${firstName}")
+	//@Value("${firstName}")
 	 private String firstName;
-	@Value("${lastName}")
+	//@Value("${lastName}")
 	 private String lastName;
-	@Value("${email}")
+	//@Value("${email}")
 	 private String email;
 	 public Address address;
 		
 
-		@Autowired	
-		public Employee(Address address) {
-			this.address = address;
-		}
+		//@Autowired	
+		//public Employee(Address address) {
+		//	this.address = address;
+		//}
 		
 	 public Employee(int id, String firstName, String lastName, String email) {
 			super();

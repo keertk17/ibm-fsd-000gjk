@@ -17,7 +17,18 @@
 	<constructor-arg name="address" ref="address"></constructor-arg>
 	</bean>-->
 	
-	<context:property-placeholder location="classpath:EmployeeProperty"/>
-	<context:component-scan base-package="comm.bean"></context:component-scan>
+	<!--<context:property-placeholder location="classpath:EmployeeProperty"/>
+	<context:component-scan base-package="comm.bean"></context:component-scan>  -->
+	
+	<bean name="ds" class="org.apache.commons.dbcp.BasicDataSource">
+	<property name="url" value="jdbc:mysql://localhost:3306/mydb"/>
+	<property name="username" value="root"/>
+	<property name="password" value="Prakshi@1509"/>
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	</bean>
+	
+	<bean name="eDao" class="comm.bean.EmployeeDAO">
+	<property name="dataSource" ref="ds"/>
+	</bean>
 
 	</beans>
