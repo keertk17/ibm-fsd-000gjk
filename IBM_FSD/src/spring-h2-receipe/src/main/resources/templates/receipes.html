@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<meta charset="UTF-8" />
+<title>first thymeleaf page</title>
+</head>
+<body>
+	<h1>Receipe List</h1>
+	<a th:href="@{/receipes/showFormForAdd}"
+		class="btn btn-primary btn-sm mb-3">
+		Add Receipe
+	</a>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+
+				
+				<th scope="col">#ID</th>
+				<th scope="col">RECEIPE_NAME</th>
+				<th scope="col">OPTION</th>
+			
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="receipe : ${receipes}">
+				
+				<td th:text="${receipe.id}">123</td>
+				<td th:text="${receipe.description}">Grill</td>
+				
+	
+	<td>
+	<div class="row">
+				
+					<div class="col-small">
+					<!-- Add "update" button/link -->
+					<form action="#" th:action="@{/receipes/showFormForView}" method="POST">
+					
+						<input type="hidden" name="receipeId" th:value="${receipe.id}" />						
+						<button type="submit" class="btn btn-link">View</button>
+
+					</form>
+					</div>
+	
+				<div class="row">
+				
+					<div class="col-small">
+					<!-- Add "update" button/link -->
+					<form action="#" th:action="@{/receipes/showFormForUpdate}" method="POST">
+					
+						<input type="hidden" name="receipeId" th:value="${receipe.id}" />						
+						<button type="submit" class="btn btn-link">Update</button>
+
+					</form>
+					</div>
+					
+					<div class="col-small">
+					<!-- Add "delete" button/link -->					
+					<form action="#" th:action="@{/receipes/delete}" method="POST">
+					
+						<input type="hidden" name="receipeId" th:value="${receipe.id}" />						
+						<button type="submit" class="btn btn-link"
+								onclick="if (!(confirm('Are you sure you want to delete this receipe?'))) return false">
+								Delete
+						</button>
+
+					</form>
+					</div>
+				</div>	
+				</td>
+	
+	
+			</tr>
+	</table>
+</body>
+</html>

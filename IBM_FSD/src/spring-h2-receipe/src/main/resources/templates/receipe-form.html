@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Save receipe</title>
+</head>
+
+<body>
+
+	<div class="container">
+	
+		<h3>Receipe Directory</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Save receipe</p>
+	
+		<form action="#" th:action="@{/receipes/save}"
+						 th:object="${receipe}" method="POST">
+		
+			<input type="text" th:field="*{cook_time}"
+					class="form-control mb-4 col-4" placeholder="cook time">
+
+			<input type="text" th:field="*{description}"
+					class="form-control mb-4 col-4" placeholder="description">
+					
+			<select th:field="*{difficulty}" class="form-control mb-4 col-4">
+                <option th:value="'hard'" th:text="hard"></option>
+			    <option th:value="'F'" th:text="medium"></option>
+			    <option th:value="'F'" th:text="easy"></option>
+			</select>
+
+			
+					<input type="text" th:field="*{direction}"
+					class="form-control mb-4 col-4" placeholder="direction">
+					
+					<input type="text" th:field="*{servings}"
+					class="form-control mb-4 col-4" placeholder="servings">
+					
+					<input type="text" th:field="*{source}"
+					class="form-control mb-4 col-4" placeholder="source">
+					<input type="text" th:field="*{url}"
+					class="form-control mb-4 col-4" placeholder="url">
+					<input type="text" th:field="*{notes_id}"
+					class="form-control mb-4 col-4" placeholder="notes_id">
+					
+					<input type="text" th:field="*{prep_time}"
+					class="form-control mb-4 col-4" placeholder="prep_time">
+					
+					
+					
+				
+			<button type="submit" class="btn btn-info col-2">Save</button>
+						
+		</form>
+	
+		<hr>
+		<a th:href="@{/receipes/list}">Back to League List</a>
+		
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
