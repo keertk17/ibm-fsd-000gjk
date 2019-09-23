@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+
+<title>Player Directory</title>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h3>Soccer Player Directory</h3>
+		<hr>
+
+		<!-- Add a button -->
+		<a th:href="@{/playerAddForm}" class="btn btn-primary btn-sm mb-3">
+			Add Player </a>
+
+
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+
+					<th>Name</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="player : ${ll}">
+
+					<td th:text="${player.name}" />
+					<td><a th:href="@{/playerEdit(id=${player.id})}"> Edit</a></td>
+					<td><a th:href="@{/playerDelete(id=${player.id})}"> Delete</a></td>
+					
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+<br>
+<a th:href="@{/}">Back to Home</a>
+</body>
+</html>
+
