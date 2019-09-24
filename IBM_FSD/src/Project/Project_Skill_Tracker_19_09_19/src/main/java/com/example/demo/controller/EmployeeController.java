@@ -5,6 +5,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import java.util.*;
 import com.example.demo.dto.EmployeeDto;
 import com.example.demo.dto.RequestModelMapper;
 import com.example.demo.dto.ResponseModelMapper;
+import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.service.EmployeeService;
 
 
@@ -25,6 +27,8 @@ public class EmployeeController {
      
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private EmployeeRepository emprepo;
 	
 	@PostMapping("/create")
 	public ResponseEntity<ResponseModelMapper> createUser(@RequestBody RequestModelMapper empdetail)
@@ -87,7 +91,7 @@ public class EmployeeController {
 		  
 		ResponseModelMapper res=mapper.map(empdto, ResponseModelMapper.class);
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(res);		
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(res);		
 	}
 	
 	@GetMapping("/name/{name}")
@@ -123,10 +127,10 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/delete/{id}")
-	public boolean deleteById(@PathVariable("id") int id)
+	public ResponseEntity<?> deleteById(@PathVariable("id") int id)
 	{
 		employeeService.deleteById(id);
-		return true;
+		return ResponseEntity.ok("deleted");
 	}
 	
 	

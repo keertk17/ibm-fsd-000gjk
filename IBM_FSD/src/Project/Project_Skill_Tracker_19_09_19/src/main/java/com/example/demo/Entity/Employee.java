@@ -1,5 +1,8 @@
 package com.example.demo.Entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,14 +19,24 @@ public class Employee {
 	private String mobileNumber;
 	@Column(name="email")
 	private String email;
-	@Column(name="skills")
-	private String skills;
+	
+	@OneToMany(targetEntity=Skills.class,cascade= CascadeType.ALL)
+	 List<Skills> skills;
 	
 	
 	public Employee() {
 		super();
+		skills=new ArrayList<>();
 	}
-	public Employee(String name, String mobileNumber, String email, String skills) {
+	public Employee(String name, String mobileNumber, String email) {
+		super();
+		this.name = name;
+		this.mobileNumber = mobileNumber;
+		this.email = email;
+		
+	}
+	
+	public Employee(String name, String mobileNumber, String email, List<Skills> skills) {
 		super();
 		this.name = name;
 		this.mobileNumber = mobileNumber;
@@ -54,12 +67,18 @@ public class Employee {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSkills() {
+	public List<Skills> getSkills() {
 		return skills;
 	}
-	public void setSkills(String skills) {
+	public void setSkills(List<Skills> skills) {
 		this.skills = skills;
 	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", mobileNumber=" + mobileNumber + ", email=" + email
+				+ ", skills=" + skills + "]";
+	}
+	
 	
 	
 }

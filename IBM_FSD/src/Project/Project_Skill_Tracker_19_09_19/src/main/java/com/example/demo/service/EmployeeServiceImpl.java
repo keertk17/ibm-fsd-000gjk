@@ -134,6 +134,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Override
 	public void deleteById(int id) {
+		System.out.println(employeeRepository.findById(id).toString());
 		employeeRepository.deleteById(id);
 		
 	}
