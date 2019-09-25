@@ -65,8 +65,12 @@ public class BootStrap  implements ApplicationListener<ContextRefreshedEvent>{
 		Employee e1=new Employee("Priya","9998881155","pri@gmail.com");
 		
        employeeRepository.save(e1);
+       Employee e2=new Employee("Keerthana","7358254775","kk@gmail.com");
+       employeeRepository.save(e2);
 		Skills s=new Skills("Java",e1,sub);
 		skillRepository.save(s);
+		Skills s1=new Skills("MachineLanguage",e2,sub3);
+		skillRepository.save(s1);
 		
 		
 	

@@ -5,30 +5,43 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.example.demo.dto.EmployeeDto;
 import com.example.demo.dto.RequestModelMapper;
 import com.example.demo.dto.ResponseModelMapper;
-import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.service.EmployeeService;
 
 
-@RestController
+@Controller
 @RequestMapping("/employee")
 public class EmployeeController {
      
 	@Autowired
 	private EmployeeService employeeService;
-	@Autowired
-	private EmployeeRepository emprepo;
+	
+	@RequestMapping("/mainpage")
+	public String index() 
+	{
+		return "index";
+	}
+	@RequestMapping("/search")
+	@ResponseBody
+	public List<String> search(HttpServletRequest request) {
+		return employeeService.search(request.getParameter("term"));
+	}
 	
 	@PostMapping("/create")
 	public ResponseEntity<ResponseModelMapper> createUser(@RequestBody RequestModelMapper empdetail)
@@ -126,11 +139,23 @@ public class EmployeeController {
 	    return list;			
 	}
 	
+	@PutMapping("/update/{Id}")
+	public ResponseEntity<ResponseModelMapper> updateEmployee(@RequestBody RequestModelMapper empDto, @PathVariable("Id") int empId){
+		ModelMapper mapper = new ModelMapper();
+		EmployeeDto empDto2 = mapper.map(empDto,EmployeeDto.class);
+				
+		EmployeeDto emp = employeeService.updateEmployee(empDto2,empId);
+				ResponseModelMapper model = mapper.map(emp,ResponseModelMapper.class);
+		return ResponseEntity.status(HttpStatus.CREATED).body(model);	
+	}
+	
 	@GetMapping("/delete/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable("id") int id)
 	{
-		employeeService.deleteById(id);
-		return ResponseEntity.ok("deleted");
+		ModelMapper mapper = new ModelMapper();
+		EmployeeDto emp = employeeService.deleteById(id);
+		ResponseModelMapper model = mapper.map(emp,ResponseModelMapper.class);
+		return ResponseEntity.status(HttpStatus.GONE).body(model);
 	}
 	
 	

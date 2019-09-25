@@ -21,6 +21,10 @@ public interface EmployeeService {
 	
 	public List<EmployeeDto> searchBySkills(String skills);
 	
-	public void deleteById(int id);
+	public EmployeeDto deleteById(int id);
+
+	public List<String> search(String parameter);
+
+	public EmployeeDto updateEmployee(EmployeeDto empDto, int empId);
 	
 }

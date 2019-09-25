@@ -21,6 +21,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Autowired
 	public EmployeeRepository employeeRepository;
 	
+	public List<String> search(String keyword) {
+		return employeeRepository.search(keyword);
+	}
+	
+	
 	@Override
 	public EmployeeDto createUser(EmployeeDto eDto) {
 		ModelMapper mapper=new ModelMapper();
@@ -132,11 +137,38 @@ public class EmployeeServiceImpl implements EmployeeService{
           return list1;
 	}
 	
+//	@Override
+//	public EmployeeDto deleteById(int id) {
+//		Optional<Employee> emp=employeeRepository.findById(id);
+//		employeeRepository.deleteById(emp);
+//		return emp;
+//	}
+
+
 	@Override
-	public void deleteById(int id) {
-		System.out.println(employeeRepository.findById(id).toString());
-		employeeRepository.deleteById(id);
+	public EmployeeDto updateEmployee(EmployeeDto empDto, int empId) {
+Employee e = null;
 		
+		Optional<Employee> op = employeeRepository.findById(empId);
+		if(op.isPresent()) {
+			e = op.get();
+			e.setName(empDto.getName());
+			e.setEmail(empDto.getEmail());
+			e.setMobileNumber(empDto.getMobileNumber());
+			employeeRepository.save(e);
+		}
+			
+		ModelMapper mapper1 = new ModelMapper();
+		mapper1.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+		EmployeeDto dto1 = mapper1.map(e,EmployeeDto.class);
+		return dto1;
 	}
 
-}
+
+	@Override
+	public EmployeeDto deleteById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	}
+
